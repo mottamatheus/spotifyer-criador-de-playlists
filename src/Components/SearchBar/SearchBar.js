@@ -2,11 +2,33 @@ import React from "react";
 import "./SearchBar.css";
 
 export class SearchBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            term: "",
+        };
+        this.search = this.search.bind(this);
+        this.handleTermChange = this.handleTermChange.bind(this);
+    }
+
+    search() {
+        this.props.onSearch(this.state.term);
+    }
+
+    handleTermChange(event) {
+        this.setState({ term: event.target.value });
+    }
+
     render() {
         return (
             <div className="SearchBar">
-                <input placeholder="Digite uma música, artista ou álbum" />
-                <button className="SearchButton">PESQUISAR</button>
+                <input
+                    onChange={this.handleTermChange}
+                    placeholder="Digite uma música, artista ou álbum"
+                />
+                <button onClick={this.search} className="SearchButton">
+                    PESQUISAR
+                </button>
             </div>
         );
     }
